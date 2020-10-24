@@ -2,5 +2,5 @@ const app = require("./src/app");
 const port = 8080;
 
 app.listen(port, () => {
-  console.log(`Servidor rodando na posta ${port}`);
+  console.log(`Server running on the port ${port}`);
 });
