@@ -48,20 +48,19 @@
         "title": "Donkey Kong Country",
         "launchYear": "1994",
         "consoles": [
-            "nitendo64",
-            "nitendoSwitch"
+            "nitendo64"
         ],
-        "liked": true,
+        "liked": false,
         "stages": [
             {
                 "id": 1,
                 "name": "Lakeside Limbo",
-                "done": false
+                "done": true
             },
             {
                 "id": 2,
                 "name": "Doorstop Dash",
-                "done": false
+                "done": true
             },
             {
                 "id": 3,
