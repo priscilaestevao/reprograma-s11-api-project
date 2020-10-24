@@ -15,6 +15,7 @@ const getGameById = (req, res) => {
     } else {
       res.status(404).send({ message: "Game not found" });
     }
+
   } catch (err) {
     res.status(500).send({ message: "Internal server error" });
   }
@@ -34,10 +35,10 @@ const registerGame = (req, res) => {
         if (err) {
           return res.status(424).send({ message: "Error adding game" });
         }
-        console.log("Game successfully added!");
       }
     );
-    res.status(200).send(games);
+    res.status(201).send(games);
+
   } catch {
     res.status(500).send({ message: "Internal server error" });
   }
@@ -50,21 +51,53 @@ const updateGame = (req, res) => {
     const gameFound = games.find((game) => game.id == gameId);
     const gameIndex = games.indexOf(gameFound);
 
-    if (gameIndex >=0 ) {
-        games.splice(gameIndex, 1, newInfomations)
+    if (gameIndex >= 0) {
+      games.splice(gameIndex, 1, newInfomations);
+
+      fs.writeFile(
+        "./src/models/games.json",
+        JSON.stringify(games),
+        "utf8",
+        (err) => {
+          if (err) {
+            return res.status(424).send({ message: "Error updating game" });
+          }
+          const gameUpdated = games.find((game) => game.id == gameId);
+          res.status(200).send(gameUpdated);
+        }
+      );
     } else {
-        res.status(404).send({ message: "Game not found to be updated"})
+      res.status(404).send({ message: "Game not found to be updated" });
     }
 
-    fs.writeFile("./src/models/games.json", JSON.stringify(games), "utf8", (err) => {
-        if (err) {
-            return res.status(424).send({ message: "Error updating game" })
-        }
-        console.log("Game updated successfully!")
-        const gameUpdated = games.find((game) => game.id == gameId)
-        res.status(200).send(gameUpdated);
-    })
+  } catch {
+    res.status(500).send({ message: "Internal server error" });
+  }
+};
 
+const deleteGame = (req, res) => {
+  try {
+    const gameId = req.params.id;
+    const gameFound = games.find((game) => game.id == gameId);
+    const gameIndex = games.indexOf(gameFound);
+
+    if (gameIndex >= 0) {
+      games.splice(gameIndex, 1);
+
+      fs.writeFile(
+        "./src/models/games.json",
+        JSON.stringify(games),
+        "utf8",
+        (err) => {
+          if (err) {
+            return res.status(424).send({ message: "Error when deleting game" });
+          }
+          res.status(200).send({ message: "Game successfully deleted"})
+        }
+      );
+    } else {
+      res.status(404).send({ message: "Game not found to be deleted" });
+    }
   } catch {
     res.status(500).send({ message: "Internal server error" });
   }
@@ -75,4 +108,5 @@ module.exports = {
   getGameById,
   registerGame,
   updateGame,
+  deleteGame,
 };
