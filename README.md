@@ -2,7 +2,7 @@
   <img src="api-ayo-games/public/images/Gaming-pana.png" alt="mulher jogando vídeo game de frente para tv" width="300">
 <p align="center">Projeto API Ayo Games<p>
 
-## Desafio da Semana: Revisão de conteúdos GET, POST, DELETE, PUT e PATCH)
+## Desafio da Semana:Revisão de conteúdos get, post, delete, put e patch
 
 Aplicação dos conhecimentos adquiridos sobre métodos HTTP (get, post, delete, put e patch) através da criação de uma API de games. Os contratos entregues estão listados abaixo:
 
